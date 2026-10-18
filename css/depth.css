@@ -1,0 +1,236 @@
+/* ==========================================================================
+   UG Global — Depth layer
+   The Close (WebGL container), pointer tilt, isometric ledger columns and
+   unfolding process steps. Everything here is progressive: without JS, or
+   under prefers-reduced-motion, each component shows its finished, flat state.
+   Scripts: js/close3d.js (+ three.min.js r128), js/depth.js.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   The Close — WebGL scene container (js/close3d.js)
+   data-state: loading | ready | static | fallback
+   Tune per placement with --ug-close3d-focus-x / -y (where the stack sits)
+   and --ug-close3d-zoom (> 1 crops tighter).
+   -------------------------------------------------------------------------- */
+.ug-close3d {
+  --ug-close3d-focus-x: 50%;
+  --ug-close3d-focus-y: 50%;
+  --ug-close3d-zoom: 1;
+  position: relative;
+  min-height: 220px;
+  overflow: hidden;
+  container-type: size;           /* the drawn fallback sizes itself like the camera fit */
+  pointer-events: none;           /* never intercepts a click; parallax listens on window */
+  user-select: none;
+  -webkit-user-select: none;
+  background: transparent;
+}
+.ug-close3d[data-variant="demo"] {
+  aspect-ratio: 16 / 10;
+  background: var(--ug-ink-950);
+  border-radius: var(--ug-radius-md);
+}
+
+.ug-close3d__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1400ms var(--ug-ease-depth);
+}
+.ug-close3d[data-state="ready"] .ug-close3d__canvas,
+.ug-close3d[data-state="static"] .ug-close3d__canvas { opacity: 1; }
+.ug-close3d[data-state="fallback"] .ug-close3d__canvas { display: none; }
+
+/* Drawn composition: visible without JS, without WebGL, or if three.js is late */
+.ug-close3d__fallback {
+  position: absolute;
+  inset: 0;
+  transition: opacity var(--ug-duration-slow) var(--ug-ease-out);
+}
+.ug-close3d__fallback svg {
+  position: absolute;
+  left: var(--ug-close3d-focus-x);
+  top: var(--ug-close3d-focus-y);
+  /* Same scale as close3d.js: zoom × min(width / 6.4, height / 3.7) per world
+     unit; --ug-c3d-span is the drawing's width in world units */
+  width: 80%;
+  width: calc(var(--ug-close3d-zoom) * var(--ug-c3d-span, 6) * min(15.625cqw, 27.03cqh));
+  max-width: none;
+  height: auto;
+  transform: translate(-50%, -50%);
+  overflow: visible;
+}
+.ug-close3d[data-state="ready"] .ug-close3d__fallback,
+.ug-close3d[data-state="static"] .ug-close3d__fallback { opacity: 0; visibility: hidden; transition-property: opacity, visibility; }
+.ug-close3d[data-state="loading"] .ug-close3d__fallback,
+.ug-js .ug-close3d:not([data-state]) .ug-close3d__fallback {
+  opacity: 0;
+  animation: ug-close3d-stall var(--ug-duration-slow) var(--ug-ease-out) 4s both; /* script stalled: draw it */
+}
+@keyframes ug-close3d-stall { from { opacity: 0; } to { opacity: 1; } }
+
+/* Drawn fallback: the resolved frame, projected with the same camera */
+.ug-close3d__fallback polygon { stroke-width: 1; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.ug-close3d__fallback .ug-c3d-plane { fill: rgba(251, 250, 246, 0.09); stroke: rgba(251, 250, 246, 0.3); }
+.ug-close3d__fallback .ug-c3d-top { fill: #3B5F4C; stroke: rgba(200, 242, 107, 0.6); }
+.ug-close3d__fallback .ug-c3d-left { fill: #2B4A3A; stroke: #2B4A3A; }
+.ug-close3d__fallback .ug-c3d-right { fill: #1E3529; stroke: #1E3529; }
+.ug-close3d__fallback .ug-c3d-plinth { fill: none; stroke: rgba(200, 242, 107, 0.3); }
+
+/* Optional soft edge: the scene dissolves into the ground around its focus */
+.ug-close3d--vignette {
+  -webkit-mask-image: radial-gradient(ellipse var(--ug-close3d-fade-x, 72%) var(--ug-close3d-fade-y, 68%) at var(--ug-close3d-focus-x) var(--ug-close3d-focus-y), #000 58%, transparent 100%);
+  mask-image: radial-gradient(ellipse var(--ug-close3d-fade-x, 72%) var(--ug-close3d-fade-y, 68%) at var(--ug-close3d-focus-x) var(--ug-close3d-focus-y), #000 58%, transparent 100%);
+}
+
+.ug-close3d__caption {
+  position: absolute;
+  left: var(--ug-space-4);
+  bottom: var(--ug-space-4);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--ug-space-3);
+  font-size: var(--ug-text-micro);
+  font-weight: var(--ug-weight-medium);
+  letter-spacing: 0.04em;
+  color: var(--ug-mist-200);    /* 9.4:1 on obsidian-950 */
+}
+.ug-close3d__caption::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: var(--ug-lime-400);
+}
+
+/* --------------------------------------------------------------------------
+   Pointer tilt (js/depth.js) — [data-ug-tilt] gains .ug-tilt only on fine,
+   hovering pointers. At rest the element has no transform, so text stays crisp.
+   -------------------------------------------------------------------------- */
+.ug-tilt {
+  --ug-tilt-x: 0deg;
+  --ug-tilt-y: 0deg;
+  --ug-sheen-x: 50%;
+  --ug-sheen-y: 50%;
+  position: relative;
+  transition: transform var(--ug-depth-duration) var(--ug-ease-depth);
+}
+.ug-tilt.is-tilting {
+  transform: perspective(var(--ug-perspective-near)) rotateX(var(--ug-tilt-x)) rotateY(var(--ug-tilt-y));
+  transition-duration: 180ms;
+  transition-timing-function: var(--ug-ease-out);
+  will-change: transform;
+}
+.ug-tilt__sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;          /* the play button and every control stay clickable */
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--ug-sheen-x) var(--ug-sheen-y), rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 58%);
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  transition: opacity var(--ug-duration-base) var(--ug-ease-standard);
+}
+.ug-tilt.is-tilting .ug-tilt__sheen { opacity: 1; }
+/* Keyboard focus inside a tilted element always wins: flat, crisp outline */
+.ug-tilt:focus-within { transform: none; }
+.ug-tilt:focus-within .ug-tilt__sheen { opacity: 0; }
+
+/* --------------------------------------------------------------------------
+   Isometric ledger columns — illustrative, aria-hidden; the numbers live in
+   the ledger rows. Builds once on entering view (.is-in from js/depth.js).
+   -------------------------------------------------------------------------- */
+.ug-ledger3d {
+  display: flex;
+  justify-content: center;
+  padding-block: var(--ug-space-6) var(--ug-space-5);
+  border-bottom: 1px solid var(--ug-color-border);
+}
+.ug-ledger3d__svg {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  max-height: 280px;
+  overflow: visible;
+}
+.ug-ledger3d__col--a {
+  --ug-l3d-top: var(--ug-paper-50);
+  --ug-l3d-left: var(--ug-paper-200);
+  --ug-l3d-right: var(--ug-line-300);
+  --ug-l3d-edge: var(--ug-line-500);
+}
+.ug-ledger3d__col--b {
+  --ug-l3d-top: var(--ug-emerald-500);
+  --ug-l3d-left: var(--ug-emerald-700);
+  --ug-l3d-right: var(--ug-emerald-900);
+  --ug-l3d-edge: var(--ug-lime-400);
+}
+.ug-ledger3d__slab { stroke-width: 1; vector-effect: non-scaling-stroke; }
+.ug-ledger3d__slab polygon { vector-effect: non-scaling-stroke; }
+.ug-ledger3d__plinth {
+  fill: none;
+  stroke: var(--ug-color-border-strong);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+  vector-effect: non-scaling-stroke;
+}
+.ug-ledger3d__col--b .ug-ledger3d__plinth { stroke: var(--ug-emerald-700); stroke-dasharray: none; }
+.ug-ledger3d__label {
+  font-family: var(--ug-font-display);
+  font-size: 15px;
+  font-weight: var(--ug-weight-semibold);
+  letter-spacing: -0.01em;
+  fill: var(--ug-color-text-secondary);   /* stone-700, 6.07:1 on ivory */
+}
+.ug-ledger3d__col--b .ug-ledger3d__label { fill: var(--ug-color-text-accent); }
+
+/* Pending state only once depth.js is running (html.ug-depth) */
+.ug-depth .ug-ledger3d:not(.is-in) .ug-ledger3d__slab {
+  opacity: 0;
+  transform: translateY(-36px);
+}
+.ug-depth .ug-ledger3d .ug-ledger3d__slab {
+  transition:
+    transform var(--ug-depth-duration) var(--ug-ease-depth),
+    opacity calc(var(--ug-depth-duration) * 0.5) var(--ug-ease-out);
+  transition-delay: calc(var(--ug-i, 0) * var(--ug-stagger) * 1.5 + 120ms);
+}
+
+/* --------------------------------------------------------------------------
+   Process steps unfold — each panel hinges open from its top edge, staggered.
+   Text is never hidden: the pending state is dimmed, not invisible.
+   -------------------------------------------------------------------------- */
+.ug-steps--unfold > * { --ug-i: 0; }
+.ug-steps--unfold > :nth-child(2) { --ug-i: 1; }
+.ug-steps--unfold > :nth-child(3) { --ug-i: 2; }
+.ug-steps--unfold > :nth-child(4) { --ug-i: 3; }
+.ug-steps--unfold > :nth-child(5) { --ug-i: 4; }
+.ug-steps--unfold > :nth-child(6) { --ug-i: 5; }
+.ug-depth .ug-steps--unfold > * {
+  transform-origin: 50% 0;
+  transition:
+    transform var(--ug-depth-duration) var(--ug-ease-depth),
+    opacity var(--ug-depth-duration) var(--ug-ease-out);
+  transition-delay: calc(var(--ug-i) * var(--ug-stagger));
+}
+.ug-depth .ug-steps--unfold:not(.is-in) > * {
+  transform: perspective(var(--ug-perspective)) rotateX(var(--ug-unfold-angle)) translateY(12px);
+  opacity: 0.35;
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion: no tilt, no unfold, no build — the finished state only.
+   (close3d.js renders a single resolved frame on its own.)
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .ug-tilt,
+  .ug-tilt.is-tilting { transform: none !important; }
+  .ug-tilt__sheen { display: none; }
+  .ug-depth .ug-ledger3d:not(.is-in) .ug-ledger3d__slab,
+  .ug-depth .ug-steps--unfold:not(.is-in) > * { transform: none; opacity: 1; }
+  .ug-close3d__canvas { transition: none; }
+}

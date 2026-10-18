@@ -1,0 +1,968 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>UG Global Homepage</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="UG Global is a specialist sales-closing firm for UK and international businesses. Your Sales. Our Focus.">
+<meta name="theme-color" content="#0A0F0D">
+<link rel="icon" href="assets/logo-mark-lime.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap">
+<link rel="stylesheet" href="tokens/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/depth.css">
+<script>document.documentElement.classList.add("ug-js");</script>
+<style>
+  /* ---- Page-level composition (homepage only) ---- */
+  :root { color-scheme: light; }
+  html, body { background: var(--ug-paper-100); }
+
+  /* Hero */
+  .hp-hero {
+    position: relative;
+    padding-top: clamp(48px, 2rem + 6vw, 128px);
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+  .hp-hero__columns {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .hp-hero__columns .ug-container { height: 100%; }
+  .hp-hero__columns .ug-grid { height: 100%; row-gap: 0; }
+  .hp-hero__columns .ug-grid > span { grid-column: auto; border-left: 1px solid rgba(200, 242, 107, 0.06); }
+  .hp-hero__columns .ug-grid > span:last-child { border-right: 1px solid rgba(200, 242, 107, 0.06); }
+  .hp-hero__inner { position: relative; }
+  .hp-hero__headline { margin-top: clamp(32px, 1rem + 4vw, 72px); }
+  .hp-hero__headline span { display: block; }
+  .hp-hero__headline .hp-hero__line2 { color: var(--ug-lime-400); }
+  .hp-hero__lower { margin-top: clamp(40px, 1.5rem + 5vw, 104px); row-gap: var(--ug-space-7); }
+  .hp-hero__note { display: flex; flex-direction: column; gap: var(--ug-space-3); align-self: end; }
+  .hp-hero__sub { display: flex; flex-direction: column; gap: var(--ug-space-6); }
+  .hp-hero__support { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ug-space-3); font-size: var(--ug-text-small); color: var(--ug-mist-200); }
+  .hp-proof {
+    margin-top: clamp(56px, 2rem + 5vw, 128px);
+    border-top: 1px solid var(--ug-ink-800);
+  }
+  .hp-proof__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--ug-space-4);
+    padding-block: var(--ug-space-5) var(--ug-space-6);
+    font-size: var(--ug-text-small);
+    color: var(--ug-mist-200);
+  }
+  .hp-proof__logos { display: flex; flex-wrap: wrap; gap: var(--ug-space-3); }
+  .hp-proof__logo {
+    display: grid;
+    place-items: center;
+    width: 112px;
+    height: 40px;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  @media (min-width: 768px) {
+    .hp-hero__headline .hp-hero__line2 { padding-left: 25%; }
+  }
+  @media (min-width: 1024px) {
+    .hp-hero__headline .hp-hero__line2 { padding-left: calc(25% + var(--ug-grid-gap) / 4); }
+    .hp-hero__note { grid-column: 1 / span 4; }
+    .hp-hero__sub { grid-column: 7 / -1; }
+    .hp-proof__inner { grid-template-columns: auto 1fr; align-items: center; gap: var(--ug-space-8); }
+    .hp-proof__logos { justify-content: flex-end; }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .hp-hero__sub { grid-column: 3 / -1; }
+    .hp-hero__note { grid-column: 1 / -1; order: 2; }
+  }
+
+  /* Hero — The Close (css/depth.css, js/close3d.js).
+     Small screens: a band between headline and sub-copy, nothing behind text.
+     Desktop: the right half of the hero, behind the composition; the
+     headline keeps an obsidian halo and the sub-copy an obsidian scrim so
+     text contrast never depends on what the scene is doing. */
+  .hp-hero__scene {
+    --ug-close3d-focus-x: 50%;
+    --ug-close3d-focus-y: 50%;
+    --ug-close3d-zoom: 1;
+    --ug-close3d-fade-x: 64%;
+    --ug-close3d-fade-y: 74%;
+    height: clamp(220px, 28vh + 48px, 42vh);
+    margin-top: clamp(8px, 3vw, 32px);
+    margin-inline: calc(-1 * var(--ug-gutter));
+  }
+  .hp-proof { position: relative; z-index: 1; }
+  @media (max-width: 1023px) {
+    .hp-hero__lower { margin-top: clamp(8px, 3vw, 32px); }
+  }
+  @media (min-width: 1024px) {
+    .hp-hero__inner { position: static; }
+    .hp-hero__inner > :not(.hp-hero__scene) { position: relative; z-index: 1; }
+    .hp-hero__scene {
+      --ug-close3d-focus-x: 61%;
+      --ug-close3d-focus-y: 23%;
+      --ug-close3d-zoom: 0.78;
+      --ug-close3d-fade-x: 58%;
+      --ug-close3d-fade-y: 50%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 58%;
+      height: auto;
+      margin: 0;
+    }
+    .hp-hero__sub { position: relative; }
+    .hp-hero__sub::before {
+      content: "";
+      position: absolute;
+      inset: -72px -56px -72px -80px;
+      z-index: -1;
+      pointer-events: none;
+      background: radial-gradient(closest-side, rgba(10, 15, 13, 0.94) 55%, rgba(10, 15, 13, 0) 100%);
+    }
+  }
+  @media (min-width: 1440px) {
+    .hp-hero__scene { --ug-close3d-focus-x: 60%; --ug-close3d-focus-y: 26%; --ug-close3d-zoom: 0.88; }
+  }
+  @media (min-width: 1680px) {
+    /* the headline stops growing at 1440: keep the scene in proportion to it */
+    .hp-hero__scene { --ug-close3d-focus-x: 57%; --ug-close3d-focus-y: 26%; --ug-close3d-zoom: 0.76; }
+  }
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    /* the headline spans most of the width here: frame the scene smaller, higher */
+    .hp-hero__scene {
+      --ug-close3d-focus-x: 66%;
+      --ug-close3d-focus-y: 19%;
+      --ug-close3d-zoom: 0.62;
+      --ug-close3d-fade-x: 46%;
+      --ug-close3d-fade-y: 36%;
+    }
+  }
+
+  /* Cost */
+  .hp-cost__body { row-gap: var(--ug-space-9); }
+  .hp-cost__text { display: flex; flex-direction: column; gap: var(--ug-space-5); }
+  .hp-cost__lede { font-family: var(--ug-font-display); font-size: var(--ug-text-h3); font-weight: var(--ug-weight-medium); letter-spacing: -0.02em; line-height: 1.3; max-width: 26ch; }
+  .hp-cost__fragments { display: flex; flex-direction: column; border-top: 1px solid var(--ug-color-border); }
+  .hp-cost__fragments li { padding-block: var(--ug-space-3); border-bottom: 1px solid var(--ug-color-border); font-family: var(--ug-font-display); font-weight: var(--ug-weight-medium); letter-spacing: -0.01em; }
+  .hp-cost__compare { display: flex; flex-direction: column; gap: var(--ug-space-8); }
+  @media (min-width: 1024px) {
+    .hp-cost__text { grid-column: 1 / span 5; }
+    .hp-cost__compare { grid-column: 7 / -1; }
+  }
+
+  /* Approach */
+  .hp-discipline { display: flex; flex-direction: column; gap: var(--ug-space-4); max-width: 46ch; }
+  .hp-process { margin-top: var(--ug-section-y-tight); }
+  .hp-process__inner { padding-block: clamp(56px, 2rem + 5vw, 120px); }
+  .hp-process__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--ug-space-6); margin-bottom: clamp(48px, 2rem + 3vw, 88px); }
+  .hp-process .ug-step { align-content: start; } /* keep step indices on one line when copy lengths differ */
+  .hp-process__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ug-space-5); margin-top: clamp(48px, 2rem + 3vw, 88px); padding-top: var(--ug-space-6); border-top: 1px solid var(--ug-ink-800); }
+
+  /* Evidence */
+  .hp-evidence__note { display: flex; flex-wrap: wrap; gap: var(--ug-space-3); align-items: center; margin-bottom: var(--ug-space-6); font-size: var(--ug-text-small); color: var(--ug-color-text-secondary); }
+  .hp-evidence__stack { display: flex; flex-direction: column; gap: clamp(64px, 3rem + 4vw, 128px); }
+
+  /* Team */
+  .hp-team__media { row-gap: var(--ug-space-7); margin-bottom: clamp(64px, 3rem + 4vw, 128px); }
+  @media (min-width: 1024px) {
+    .hp-team__film { grid-column: 1 / span 8; }
+    .hp-team__call { grid-column: 9 / -1; align-self: end; }
+  }
+
+  /* Why */
+  .hp-why__grid { row-gap: var(--ug-space-9); }
+  .hp-why__terms { display: flex; flex-direction: column; gap: var(--ug-space-4); }
+  @media (min-width: 1024px) {
+    .hp-why__aside { grid-column: 1 / span 4; position: sticky; top: calc(var(--ug-header-h-condensed) + 48px); align-self: start; }
+    .hp-why__list { grid-column: 5 / -1; }
+  }
+
+  /* FAQ */
+  @media (min-width: 1024px) {
+    .hp-faq__list { grid-column: 4 / -1; }
+  }
+
+  /* Final */
+  .hp-final__grid { row-gap: var(--ug-space-8); }
+  .hp-final__copy { display: flex; flex-direction: column; gap: var(--ug-space-6); }
+  .hp-final__playbook { padding-top: var(--ug-space-5); border-top: 1px solid var(--ug-color-border); display: flex; flex-direction: column; gap: var(--ug-space-2); }
+  @media (min-width: 1024px) {
+    .hp-final__copy { grid-column: 1 / span 5; position: sticky; top: calc(var(--ug-header-h-condensed) + 48px); align-self: start; }
+    .hp-final__form { grid-column: 7 / -1; }
+  }
+  .hp-booking { margin-top: var(--ug-space-6); }
+
+  @media (max-width: 767px) {
+    body { padding-bottom: 0; }
+    .ug-footer { padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
+  }
+
+  /* ---- Rebrand: proof logos, case visual, terms, booking slots, film card ---- */
+  .hp-hero { background: radial-gradient(60% 70% at 78% 30%, rgba(25, 162, 110, 0.22) 0%, transparent 70%), var(--ug-ink-950); }
+  .hp-proof__figure { color: var(--ug-mist-200); }
+  .hp-proof__figure strong { font-family: var(--ug-font-display); font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em; color: var(--ug-lime-400); margin-right: 4px; }
+  .hp-proof__logos { align-items: center; gap: var(--ug-space-6); }
+  .hp-proof__logo { width: auto; height: auto; display: inline-flex; align-items: baseline; gap: 4px; color: var(--ug-white); opacity: 0.86; text-transform: none; letter-spacing: 0; font-size: 1.0625rem; white-space: nowrap; }
+  .hp-proof__logo--serif { font-family: var(--ug-font-quote); font-style: italic; font-size: 1.25rem; }
+  .hp-proof__logo--serif span { font-style: normal; font-family: var(--ug-font-body); font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; }
+  .hp-proof__logo--caps { font-family: var(--ug-font-display); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.875rem; }
+  .hp-proof__logo--geo { font-family: var(--ug-font-display); font-weight: 500; letter-spacing: -0.03em; font-size: 1.25rem; }
+  .hp-proof__logo--geo b { font-weight: 800; color: var(--ug-lime-400); }
+  .hp-proof__logo--mono { font-family: var(--ug-font-body); font-weight: 600; letter-spacing: 0.24em; font-size: 0.75rem; }
+
+  .hp-case-visual { border-radius: var(--ug-radius-md); background: radial-gradient(80% 70% at 80% 10%, rgba(25, 162, 110, 0.35), transparent 70%), var(--ug-ink-950); }
+  .hp-case-visual__inner { position: absolute; inset: 0; display: flex; flex-direction: column; padding: clamp(20px, 4%, 36px); gap: var(--ug-space-4); }
+  .hp-case-visual__label { font-size: var(--ug-text-eyebrow); font-weight: 600; letter-spacing: var(--ug-tracking-eyebrow); text-transform: uppercase; color: var(--ug-lime-400); }
+  .hp-case-visual__bars { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 12%; align-items: end; padding-inline: 8%; border-bottom: 1px solid var(--ug-ink-600); }
+  .hp-case-visual__bar { position: relative; height: var(--h); min-height: 56px; background: linear-gradient(180deg, #2B3833, #1A2420); border-radius: 2px 2px 0 0; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 10px; }
+  .hp-case-visual__bar--after { background: linear-gradient(180deg, var(--ug-lime-400), var(--ug-emerald-500)); color: var(--ug-ink-950); }
+  .hp-case-visual__bar span { font-family: var(--ug-font-display); font-weight: 800; font-size: clamp(1.25rem, 0.9rem + 1.6vw, 2.25rem); letter-spacing: -0.03em; }
+  .hp-case-visual__bar small { position: absolute; bottom: -28px; font-size: var(--ug-text-micro); color: var(--ug-mist-200); white-space: nowrap; }
+  .hp-case-visual__foot { margin-top: 28px; font-size: var(--ug-text-small); color: var(--ug-mist-200); }
+
+  .hp-term { padding: var(--ug-space-5) var(--ug-space-5) var(--ug-space-5) 0; border-top: 1px solid var(--ug-color-border); display: grid; gap: var(--ug-space-2); }
+  .hp-term__label { font-size: var(--ug-text-eyebrow); font-weight: 600; letter-spacing: var(--ug-tracking-eyebrow); text-transform: uppercase; color: var(--ug-color-text-accent); }
+  .hp-term__text { font-size: var(--ug-text-body-l); line-height: 1.55; color: var(--ug-color-text); max-width: 52ch; }
+
+  .hp-booking { display: flex; flex-direction: column; gap: var(--ug-space-4); padding-top: var(--ug-space-6); border-top: 1px solid var(--ug-color-border); }
+  .hp-booking__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--ug-space-2) var(--ug-space-4); }
+  .hp-booking__slots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ug-space-2); }
+  @media (min-width: 600px) { .hp-booking__slots { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .hp-slot { width: 100%; min-height: 56px; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 10px 14px; background: var(--ug-white); border: 1px solid var(--ug-line-500); border-radius: var(--ug-radius-sm); font-size: var(--ug-text-small); font-weight: 600; color: var(--ug-ink-950); text-align: left; transition: background-color var(--ug-duration-fast), border-color var(--ug-duration-fast); }
+  .hp-slot span { font-family: var(--ug-font-display); font-size: 1.125rem; font-weight: 700; letter-spacing: -0.02em; color: var(--ug-emerald-700); }
+  .hp-slot:hover { border-color: var(--ug-ink-950); }
+  .hp-slot[aria-pressed="true"] { background: var(--ug-ink-950); border-color: var(--ug-ink-950); color: var(--ug-white); }
+  .hp-slot[aria-pressed="true"] span { color: var(--ug-lime-400); }
+  .hp-slot:focus-visible { outline: 2px solid var(--ug-emerald-700); outline-offset: 2px; }
+
+  .hp-film-card { position: absolute; left: clamp(20px, 5%, 48px); top: clamp(20px, 8%, 56px); display: flex; flex-direction: column; gap: 4px; color: var(--ug-white); }
+  .hp-film-card svg { width: 40px; height: 40px; margin-bottom: clamp(8px, 3%, 24px); }
+  .hp-film-card__kicker { font-size: var(--ug-text-eyebrow); font-weight: 600; letter-spacing: var(--ug-tracking-eyebrow); text-transform: uppercase; color: var(--ug-lime-400); }
+  .hp-film-card__title { font-family: var(--ug-font-display); font-weight: 800; font-size: clamp(2.5rem, 1.5rem + 4vw, 5rem); letter-spacing: -0.045em; line-height: 0.95; }
+  .hp-film-card__sub { font-size: var(--ug-text-small); color: var(--ug-mist-200); }
+</style>
+<a class="ug-skip" href="#main">Skip to content</a>
+
+<!-- ===================== HEADER ===================== -->
+<header class="ug-header" data-ug-header>
+  <div class="ug-container ug-header__inner">
+    <a class="ug-brand" href="#top" aria-label="UG Global, home">
+      <svg class="ug-brand__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="6" fill="#C8F26B"/><path d="M17 15v18.5a15 15 0 0 0 30 0V29H36" fill="none" stroke="#0A0F0D" stroke-width="6.5" stroke-linecap="square"/><rect x="40.5" y="12" width="9.5" height="9.5" fill="#0E6B4B"/></svg><span class="ug-brand__word"><b>UG</b> Global</span>
+    </a>
+    <nav class="ug-nav" aria-label="Primary">
+      <ul class="ug-nav__list" role="list">
+        <li><a class="ug-nav__link" href="#approach" data-ug-spy>Approach</a></li>
+        <li><a class="ug-nav__link" href="#evidence" data-ug-spy>Evidence</a></li>
+        <li><a class="ug-nav__link" href="#team" data-ug-spy>Team</a></li>
+        <li><a class="ug-nav__link" href="#why" data-ug-spy>Why UG Global</a></li>
+        <li><a class="ug-nav__link" href="#faq" data-ug-spy>FAQ</a></li>
+      </ul>
+    </nav>
+    <div data-surface="dark" class="ug-header__cta">
+      <a class="ug-btn ug-btn--primary ug-btn--sm" href="#review">
+        <span class="ug-btn__label">Request Your Enquiry Review</span>
+        <svg class="ug-btn__icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h13M10 4l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      </a>
+    </div>
+    <button class="ug-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" data-ug-menu-toggle>
+      <span class="ug-menu-toggle__label">Menu</span>
+      <span class="ug-menu-toggle__bars" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<div class="ug-mobile-nav" id="mobile-nav" hidden data-surface="dark">
+  <nav aria-label="Mobile">
+    <ul class="ug-mobile-nav__list" role="list">
+      <li><a class="ug-mobile-nav__link" href="#approach" data-ug-spy><span>Approach</span><span>How we work</span></a></li>
+      <li><a class="ug-mobile-nav__link" href="#evidence" data-ug-spy><span>Evidence</span><span>Results</span></a></li>
+      <li><a class="ug-mobile-nav__link" href="#team" data-ug-spy><span>Team</span><span>Who you meet</span></a></li>
+      <li><a class="ug-mobile-nav__link" href="#why" data-ug-spy><span>Why UG Global</span><span>Principles</span></a></li>
+      <li><a class="ug-mobile-nav__link" href="#faq" data-ug-spy><span>FAQ</span><span>Before we speak</span></a></li>
+    </ul>
+  </nav>
+  <div class="ug-mobile-nav__foot">
+    <a class="ug-btn ug-btn--primary ug-btn--lg ug-btn--block" href="#review">
+      <span class="ug-btn__label">Request Your Enquiry Review</span>
+      <svg class="ug-btn__icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h13M10 4l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+    </a>
+    <p class="ug-small ug-secondary">A 15-minute conversation. No obligation.</p>
+  </div>
+</div>
+
+<main id="main" data-ug-inert-when-menu>
+
+<!-- ===================== 1. HERO ===================== -->
+<section class="hp-hero" id="top" data-surface="dark" data-ug-hero aria-labelledby="hero-title">
+  <div class="hp-hero__columns" aria-hidden="true">
+    <div class="ug-container"><div class="ug-grid"><span></span><span></span><span></span><span></span><span class="hide-sm"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+  </div>
+  <div class="ug-container hp-hero__inner">
+    <p class="ug-eyebrow">Sales closing partners · UK &amp; international</p>
+    <h1 class="ug-display-xl hp-hero__headline" id="hero-title">
+      <span>Your Sales.</span>
+      <span class="hp-hero__line2">Our Focus.</span>
+    </h1>
+    <!-- The Close: fifty enquiries, ten clients. Decorative; js/close3d.js -->
+    <div class="ug-close3d ug-close3d--vignette hp-hero__scene" data-ug-close3d data-variant="hero" aria-hidden="true">
+      <div class="ug-close3d__fallback"><svg viewBox="-299 -149 598 298" style="--ug-c3d-span:5.980" focusable="false"><polygon class="ug-c3d-plane" opacity="0.69" points="51,-67 -19,-69 -21,-112 50,-111"/><polygon class="ug-c3d-plane" opacity="0.70" points="19,-59 -53,-79 -42,-124 31,-103"/><polygon class="ug-c3d-plane" opacity="0.71" points="1,-88 -64,-86 -60,-130 5,-132"/><polygon class="ug-c3d-plane" opacity="0.71" points="85,-71 10,-72 9,-120 84,-119"/><polygon class="ug-c3d-plane" opacity="0.72" points="37,-74 -34,-74 -32,-119 39,-119"/><polygon class="ug-c3d-plane" opacity="0.72" points="-35,-97 -115,-92 -113,-139 -33,-143"/><polygon class="ug-c3d-plane" opacity="0.73" points="94,-39 28,-70 38,-118 105,-87"/><polygon class="ug-c3d-plane" opacity="0.73" points="-53,-84 -128,-75 -125,-125 -49,-132"/><polygon class="ug-c3d-plane" opacity="0.74" points="164,-12 108,-48 116,-95 174,-60"/><polygon class="ug-c3d-plane" opacity="0.75" points="109,-45 34,-60 38,-113 114,-99"/><polygon class="ug-c3d-plane" opacity="0.75" points="-19,-82 -95,-64 -96,-113 -19,-130"/><polygon class="ug-c3d-plane" opacity="0.75" points="-62,-87 -140,-69 -142,-124 -63,-140"/><polygon class="ug-c3d-plane" opacity="0.76" points="113,-27 43,-49 48,-101 119,-80"/><polygon class="ug-c3d-plane" opacity="0.76" points="183,-11 136,-32 144,-81 191,-61"/><polygon class="ug-c3d-plane" opacity="0.74" points="-132,-103 -174,-70 -173,-112 -130,-143"/><polygon class="ug-c3d-plane" opacity="0.77" points="138,-18 68,-51 74,-101 145,-70"/><polygon class="ug-c3d-plane" opacity="0.75" points="150,-3 111,-37 114,-86 155,-54"/><polygon class="ug-c3d-plane" opacity="0.77" points="195,22 152,-20 155,-63 199,-22"/><polygon class="ug-c3d-plane" opacity="0.80" points="-83,-81 -156,-68 -157,-127 -84,-137"/><polygon class="ug-c3d-plane" opacity="0.71" points="-152,-86 -181,-67 -183,-114 -153,-131"/><polygon class="ug-c3d-plane" opacity="0.77" points="209,16 168,-9 170,-62 211,-41"/><polygon class="ug-c3d-plane" opacity="0.82" points="-118,-83 -170,-74 -162,-123 -111,-130"/><polygon class="ug-c3d-plane" opacity="0.69" points="213,32 178,3 176,-51 212,-25"/><polygon class="ug-c3d-plane" opacity="0.60" points="217,33 196,-11 204,-61 226,-20"/><polygon class="ug-c3d-plane" opacity="0.53" points="-168,-81 -187,-65 -183,-118 -164,-131"/><polygon class="ug-c3d-plane" opacity="0.42" points="228,56 221,26 225,-24 232,3"/><polygon class="ug-c3d-plane" opacity="0.39" points="-180,-79 -181,-42 -183,-101 -182,-136"/><polygon class="ug-c3d-plane" opacity="0.58" points="-209,-87 -227,-67 -232,-117 -214,-135"/><polygon class="ug-c3d-plane" opacity="0.42" points="251,56 245,16 247,-32 254,6"/><polygon class="ug-c3d-plane" opacity="0.41" points="-212,-71 -212,-39 -219,-90 -218,-120"/><polygon class="ug-c3d-plane" opacity="0.68" points="218,68 255,41 259,-6 222,19"/><polygon class="ug-c3d-plane" opacity="0.30" points="234,85 254,47 267,-4 248,32"/><polygon class="ug-c3d-plinth" points="-126,60 20,27 130,74 -23,114"/><polygon class="ug-c3d-plane" opacity="0.61" points="-243,-73 -222,-45 -217,-104 -239,-130"/><polygon class="ug-c3d-top" points="-35,78 88,49 31,25 -88,52"/><polygon class="ug-c3d-left" points="-35,87 -35,78 -88,52 -88,60"/><polygon class="ug-c3d-right" points="-35,87 88,57 88,49 -35,78"/><polygon class="ug-c3d-top" points="-35,66 88,37 31,13 -88,40"/><polygon class="ug-c3d-left" points="-35,75 -35,66 -88,40 -88,48"/><polygon class="ug-c3d-right" points="-35,75 88,45 88,37 -35,66"/><polygon class="ug-c3d-top" points="-35,53 88,25 31,2 -89,28"/><polygon class="ug-c3d-left" points="-35,62 -35,53 -89,28 -89,36"/><polygon class="ug-c3d-right" points="-35,62 88,33 88,25 -35,53"/><polygon class="ug-c3d-top" points="-35,40 88,13 31,-10 -89,15"/><polygon class="ug-c3d-left" points="-35,49 -35,40 -89,15 -89,24"/><polygon class="ug-c3d-right" points="-35,49 88,21 88,13 -35,40"/><polygon class="ug-c3d-top" points="-35,28 89,0 31,-21 -89,3"/><polygon class="ug-c3d-left" points="-35,37 -35,28 -89,3 -89,12"/><polygon class="ug-c3d-right" points="-35,37 88,9 89,0 -35,28"/><polygon class="ug-c3d-top" points="-35,15 89,-12 32,-33 -89,-9"/><polygon class="ug-c3d-left" points="-35,24 -35,15 -89,-9 -89,0"/><polygon class="ug-c3d-right" points="-35,24 89,-3 89,-12 -35,15"/><polygon class="ug-c3d-top" points="-35,2 89,-24 32,-45 -90,-21"/><polygon class="ug-c3d-left" points="-35,11 -35,2 -90,-21 -89,-13"/><polygon class="ug-c3d-right" points="-35,11 89,-15 89,-24 -35,2"/><polygon class="ug-c3d-top" points="-35,-11 89,-36 32,-57 -90,-34"/><polygon class="ug-c3d-left" points="-35,-2 -35,-11 -90,-34 -90,-25"/><polygon class="ug-c3d-right" points="-35,-2 89,-28 89,-36 -35,-11"/><polygon class="ug-c3d-top" points="-35,-24 90,-49 32,-69 -90,-46"/><polygon class="ug-c3d-left" points="-35,-15 -35,-24 -90,-46 -90,-38"/><polygon class="ug-c3d-right" points="-35,-15 89,-40 90,-49 -35,-24"/><polygon class="ug-c3d-top" points="-35,-37 90,-61 32,-80 -90,-59"/><polygon class="ug-c3d-left" points="-35,-28 -35,-37 -90,-59 -90,-50"/><polygon class="ug-c3d-right" points="-35,-28 90,-52 90,-61 -35,-37"/><polygon class="ug-c3d-plane" opacity="0.13" points="240,92 277,76 293,28 256,42"/><polygon class="ug-c3d-plane" opacity="0.74" points="-241,-57 -204,-30 -211,-80 -248,-105"/><polygon class="ug-c3d-plane" opacity="0.65" points="-284,-63 -236,-18 -238,-77 -287,-120"/><polygon class="ug-c3d-plane" opacity="0.04" points="221,113 252,82 259,30 228,59"/><polygon class="ug-c3d-plane" opacity="0.44" points="-271,-68 -238,-36 -237,-86 -271,-117"/><polygon class="ug-c3d-plane" opacity="0.10" points="-277,-39 -219,-13 -230,-74 -289,-98"/></svg></div>
+    </div>
+    <div class="ug-grid hp-hero__lower">
+      <div class="hp-hero__sub">
+        <p class="ug-body-l"><strong style="font-weight:600;color:var(--ug-paper-100)">You've earned the enquiry. We make sure it becomes a client.</strong> <span class="ug-secondary">UG Global is a specialist closing firm for businesses whose growth depends on every conversation going right.</span></p>
+        <div class="ug-cluster" style="--ug-cluster-gap: 20px">
+          <a class="ug-btn ug-btn--primary ug-btn--lg ug-btn--block-mobile" href="#review">
+            <span class="ug-btn__label">Request Your Enquiry Review</span>
+            <svg class="ug-btn__icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h13M10 4l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </a>
+        </div>
+        <p class="hp-hero__support">
+          <span>A 15-minute conversation. No obligation.</span>
+        </p>
+      </div>
+      <div class="hp-hero__note">
+        <p class="ug-micro ug-secondary" style="max-width:34ch">We don't generate leads, run advertising or sell software. We close.</p>
+      </div>
+    </div>
+  </div>
+  <div class="hp-proof">
+    <div class="ug-container hp-proof__inner">
+      <p class="hp-proof__figure"><strong class="ug-tabular">£4.2m</strong> closed for our partners <span class="ug-sample">Sample</span></p>
+      <ul class="hp-proof__logos" role="list" aria-label="Partners (sample names)">
+        <li class="hp-proof__logo hp-proof__logo--serif">Northgate <span>Clinics</span></li>
+        <li class="hp-proof__logo hp-proof__logo--caps">Halden &amp; Co.</li>
+        <li class="hp-proof__logo hp-proof__logo--geo">meridian<b>homes</b></li>
+        <li class="hp-proof__logo hp-proof__logo--mono">ASHWORTH LEGAL</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 2. COST ===================== -->
+<section class="ug-section" id="cost" data-surface="forest" aria-labelledby="cost-title">
+  <div class="ug-container">
+    <header class="ug-section-head" data-ug-reveal>
+      <div class="ug-section-head__aside">
+        <span class="ug-section-head__index">02</span>
+        <span class="ug-eyebrow ug-eyebrow--plain">The cost of missed opportunities</span>
+      </div>
+      <div class="ug-section-head__main">
+        <h2 class="ug-display-l" id="cost-title">The most expensive lead is the one you've already paid for.</h2>
+      </div>
+    </header>
+    <div class="ug-grid hp-cost__body">
+      <div class="hp-cost__text" data-ug-reveal>
+        <p class="hp-cost__lede">Marketing makes the phone ring. What happens next decides the return.</p>
+        <ul class="hp-cost__fragments" role="list">
+          <li>A missed call.</li>
+          <li>A follow-up that never comes.</li>
+          <li>A prospect who meant to decide, and didn't.</li>
+        </ul>
+        <p class="ug-body ug-secondary">Each one is small. Together, they are the difference between a good year and an exceptional one.</p>
+      </div>
+      <div class="hp-cost__compare" data-ug-reveal>
+        <figure class="ug-ledger" aria-labelledby="ledger-cap">
+          <!-- Illustrative: the same fifty enquiries at 10% and at 20%. Numbers live in the rows below. -->
+          <div class="ug-ledger3d" aria-hidden="true">
+            <svg class="ug-ledger3d__svg" viewBox="-192.6 -167.5 385.2 251.5" preserveAspectRatio="xMidYMax meet" focusable="false">
+            <defs><g id="ug-l3d-slab"><polygon points="-64.09,0 0,37 0,29 -64.09,-8" style="fill:var(--ug-l3d-left)"/><polygon points="64.09,0 0,37 0,29 64.09,-8" style="fill:var(--ug-l3d-right)"/><polygon points="0,-45 64.09,-8 0,29 -64.09,-8" style="fill:var(--ug-l3d-top);stroke:var(--ug-l3d-edge)"/></g></defs>
+            <g class="ug-ledger3d__col ug-ledger3d__col--a" transform="translate(-98 0)">
+            <polygon class="ug-ledger3d__plinth" points="0,-50 86.6,0 0,50 -86.6,0"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="0" style="--ug-i:0"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="-12.5" style="--ug-i:1"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="-25" style="--ug-i:2"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="-37.5" style="--ug-i:3"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="-50" style="--ug-i:4"/>
+            <text class="ug-ledger3d__label" x="0" y="76" text-anchor="middle">10%</text>
+            </g>
+            <g class="ug-ledger3d__col ug-ledger3d__col--b" transform="translate(98 0)">
+            <polygon class="ug-ledger3d__plinth" points="0,-50 86.6,0 0,50 -86.6,0"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="0" style="--ug-i:0"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="-12.5" style="--ug-i:1"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="-25" style="--ug-i:2"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="-37.5" style="--ug-i:3"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="-50" style="--ug-i:4"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="-62.5" style="--ug-i:5"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="-75" style="--ug-i:6"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="-87.5" style="--ug-i:7"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="-100" style="--ug-i:8"/>
+            <use class="ug-ledger3d__slab" href="#ug-l3d-slab" y="-112.5" style="--ug-i:9"/>
+            <text class="ug-ledger3d__label" x="0" y="76" text-anchor="middle">20%</text>
+            </g>
+            </svg>
+          </div>
+          <div class="ug-ledger__head" aria-hidden="true"><span>Enquiries a month</span><span>Converted at</span><span style="text-align:right">Clients</span></div>
+          <div class="ug-ledger__row">
+            <span class="ug-ledger__cell">50</span>
+            <span class="ug-ledger__cell">10%</span>
+            <span class="ug-ledger__result">5<small>clients</small></span>
+          </div>
+          <div class="ug-ledger__row ug-ledger__row--emphasis">
+            <span class="ug-ledger__cell">50</span>
+            <span class="ug-ledger__cell">20%</span>
+            <span class="ug-ledger__result">10<small>clients</small></span>
+          </div>
+          <figcaption class="ug-ledger__foot" id="ledger-cap">
+            <span>Same marketing. Twice the business.</span>
+            <span class="ug-badge">Illustrative example</span>
+          </figcaption>
+        </figure>
+        <blockquote class="ug-quote">
+          <p class="ug-quote__text">Fifty enquiries a month, converted at 10%, is five clients. At 20%, it's ten. <em>Same marketing. Twice the business.</em></p>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3. APPROACH ===================== -->
+<section class="ug-section" id="approach" data-surface="paper" aria-labelledby="approach-title" style="padding-bottom:0">
+  <div class="ug-container">
+    <header class="ug-section-head" data-ug-reveal>
+      <div class="ug-section-head__aside">
+        <span class="ug-section-head__index">03</span>
+        <span class="ug-eyebrow ug-eyebrow--plain">Our approach</span>
+      </div>
+      <div class="ug-section-head__main">
+        <h2 class="ug-display-l" id="approach-title">One discipline. Practised exceptionally well.</h2>
+        <p class="ug-body-l ug-section-head__intro">We don't generate leads, run advertising or sell software. We close. Our closers work as an extension of your business and take each qualified enquiry from first conversation to final decision.</p>
+      </div>
+    </header>
+
+    <ol class="ug-pillars" role="list" data-ug-reveal>
+      <li class="ug-pillar" data-ug-tilt>
+        <span class="ug-pillar__numeral" aria-hidden="true">I</span>
+        <h3 class="ug-h3 ug-pillar__title">The conversation</h3>
+        <p class="ug-body ug-pillar__body">We listen before we advise. We understand what each prospect needs, then show precisely how you deliver it.</p>
+      </li>
+      <li class="ug-pillar" data-ug-tilt>
+        <span class="ug-pillar__numeral" aria-hidden="true">II</span>
+        <h3 class="ug-h3 ug-pillar__title">The follow-through</h3>
+        <p class="ug-body ug-pillar__body">Decisions take time. We stay present, measured and persistent until every prospect reaches a clear answer.</p>
+      </li>
+      <li class="ug-pillar" data-ug-tilt>
+        <span class="ug-pillar__numeral" aria-hidden="true">III</span>
+        <h3 class="ug-h3 ug-pillar__title">The close</h3>
+        <p class="ug-body ug-pillar__body">Concerns met with candour. Decisions made with confidence. Never pressure, always professionalism.</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="hp-process" data-surface="dark">
+    <div class="ug-container hp-process__inner">
+      <div class="hp-process__head">
+        <h3 class="ug-h2" id="process-title">How a partnership begins</h3>
+        <p class="ug-eyebrow ug-eyebrow--plain">Four stages</p>
+      </div>
+      <ol class="ug-steps ug-steps--unfold" role="list" aria-labelledby="process-title" data-ug-reveal>
+        <li class="ug-step">
+          <span class="ug-step__node" aria-hidden="true"></span>
+          <div class="ug-step__body">
+            <span class="ug-step__index">01</span>
+            <h4 class="ug-h3 ug-step__title">Review</h4>
+            <p class="ug-step__text">We study your enquiries and find where revenue is being lost.</p>
+          </div>
+        </li>
+        <li class="ug-step">
+          <span class="ug-step__node" aria-hidden="true"></span>
+          <div class="ug-step__body">
+            <span class="ug-step__index">02</span>
+            <h4 class="ug-h3 ug-step__title">Immersion</h4>
+            <p class="ug-step__text">We learn your offer, your clients and your voice, until we speak as you would.</p>
+          </div>
+        </li>
+        <li class="ug-step">
+          <span class="ug-step__node" aria-hidden="true"></span>
+          <div class="ug-step__body">
+            <span class="ug-step__index">03</span>
+            <h4 class="ug-h3 ug-step__title">Representation</h4>
+            <p class="ug-step__text">Our closers take on every conversation, follow-up and close.</p>
+          </div>
+        </li>
+        <li class="ug-step">
+          <span class="ug-step__node" aria-hidden="true"></span>
+          <div class="ug-step__body">
+            <span class="ug-step__index">04</span>
+            <h4 class="ug-h3 ug-step__title">Clarity</h4>
+            <p class="ug-step__text">You see every opportunity, where it stands and what it's worth.</p>
+          </div>
+        </li>
+      </ol>
+      <div class="hp-process__cta">
+        <a class="ug-btn ug-btn--primary ug-btn--lg ug-btn--block-mobile" href="#review">
+          <span class="ug-btn__label">Request Your Enquiry Review</span>
+          <svg class="ug-btn__icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h13M10 4l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </a>
+        <p class="ug-small ug-secondary">Stage one begins with this conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 4. EVIDENCE ===================== -->
+<section class="ug-section" id="evidence" data-surface="light" aria-labelledby="evidence-title">
+  <div class="ug-container">
+    <header class="ug-section-head" data-ug-reveal>
+      <div class="ug-section-head__aside">
+        <span class="ug-section-head__index">04</span>
+        <span class="ug-eyebrow ug-eyebrow--plain">Evidence</span>
+      </div>
+      <div class="ug-section-head__main">
+        <h2 class="ug-display-l" id="evidence-title">Judged by results. Nothing else.</h2>
+      </div>
+    </header>
+
+    <div class="hp-evidence__stack">
+      <div data-ug-reveal>
+        <p class="hp-evidence__note"><span class="ug-sample">Sample</span> Example figures for layout. Swap in verified results before launch.</p>
+        <dl class="ug-kpis">
+          <div class="ug-kpi">
+            <dt class="ug-kpi__label" style="order:2">Average close rate on qualified enquiries</dt>
+            <dd class="ug-kpi__value" style="order:1">34<span class="ug-kpi__unit">%</span></dd>
+          </div>
+          <div class="ug-kpi">
+            <dt class="ug-kpi__label" style="order:2">Revenue closed for our partners</dt>
+            <dd class="ug-kpi__value" style="order:1"><span class="ug-kpi__unit">£</span>4.2<span class="ug-kpi__unit">m</span></dd>
+          </div>
+          <div class="ug-kpi">
+            <dt class="ug-kpi__label" style="order:2">Businesses represented</dt>
+            <dd class="ug-kpi__value" style="order:1">60<span class="ug-kpi__unit">+</span></dd>
+          </div>
+        </dl>
+      </div>
+
+      <article class="ug-case" aria-labelledby="case-title" data-ug-reveal>
+        <div class="ug-case__head">
+          <div class="ug-media hp-case-visual" data-surface="dark" style="--ug-media-ratio: 4 / 3" data-ug-tilt>
+            <div class="hp-case-visual__inner">
+              <p class="hp-case-visual__label">Enquiry-to-client conversion</p>
+              <div class="hp-case-visual__bars" aria-hidden="true">
+                <div class="hp-case-visual__bar" style="--h: 42%"><span>11%</span><small>Before</small></div>
+                <div class="hp-case-visual__bar hp-case-visual__bar--after" style="--h: 100%"><span>26%</span><small>After 4 months</small></div>
+              </div>
+              <p class="hp-case-visual__foot">Northgate Clinics · 400 enquiries a month</p>
+            </div>
+          </div>
+        </div>
+        <div class="ug-stack" style="--ug-stack-gap: 24px">
+          <div class="ug-case__meta">
+            <span class="ug-eyebrow ug-eyebrow--plain">Case study</span>
+            <span class="ug-small">Northgate Clinics, private healthcare</span>
+            <span class="ug-sample">Sample case study</span>
+          </div>
+          <h3 class="ug-h2" id="case-title">From one in nine to one in four.</h3>
+          <dl class="ug-case__facts">
+            <div class="ug-case__fact"><dt>The challenge</dt><dd>Around 400 enquiries a month from paid search, answered by a front desk between appointments. One in nine became a booked treatment plan.</dd></div>
+            <div class="ug-case__fact"><dt>What we changed</dt><dd>A dedicated closing team on every enquiry within the hour, a structured 21-day follow-up, and objections answered in the clinic’s own voice.</dd></div>
+            <div class="ug-case__fact ug-case__fact--result"><dt>The result</dt><dd>Conversion rose from 11% to 26% in four months: £1.1m in additional treatment revenue in the first year.</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <figure class="ug-testimonial" data-ug-reveal>
+        <div>
+          <span class="ug-eyebrow ug-eyebrow--plain">From a partner</span>
+        </div>
+        <div class="ug-testimonial__body">
+          <span class="ug-testimonial__mark" aria-hidden="true">“</span>
+          <blockquote class="ug-testimonial__text"><p>We kept spending more on marketing and blaming the leads. UG Global showed us the leads were fine. Within three months our close rate had doubled, and our name was in better hands than ever.</p></blockquote>
+          <figcaption class="ug-testimonial__cite">
+            <span><strong>Sarah Whitcombe</strong>, Managing Director, Northgate Clinics</span>
+            <span class="ug-sample">Sample testimonial</span>
+          </figcaption>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 5. FOUNDER & TEAM ===================== -->
+<section class="ug-section" id="team" data-surface="white" aria-labelledby="team-title">
+  <div class="ug-container">
+    <header class="ug-section-head" data-ug-reveal>
+      <div class="ug-section-head__aside">
+        <span class="ug-section-head__index">05</span>
+        <span class="ug-eyebrow ug-eyebrow--plain">Founder &amp; team</span>
+      </div>
+      <div class="ug-section-head__main">
+        <h2 class="ug-display-l" id="team-title">The people who speak in your name.</h2>
+        <p class="ug-body-l ug-section-head__intro">Your prospects meet your company through us, so we take every conversation personally. Each closer learns your business before speaking to a single client. Each conversation is held to one standard: would you be proud of it?</p>
+      </div>
+    </header>
+
+    <div class="ug-grid hp-team__media">
+      <figure class="ug-video hp-team__film" data-ug-video data-duration="150" data-state="idle" data-ug-reveal>
+        <div class="ug-video__frame" data-ug-tilt>
+          <div class="ug-video__poster" aria-hidden="true"></div>
+          <div class="hp-film-card" aria-hidden="true">
+            <svg viewBox="0 0 64 64" focusable="false"><rect width="64" height="64" rx="6" fill="#C8F26B"/><path d="M17 15v18.5a15 15 0 0 0 30 0V29H36" fill="none" stroke="#0A0F0D" stroke-width="6.5" stroke-linecap="square"/><rect x="40.5" y="12" width="9.5" height="9.5" fill="#0E6B4B"/></svg>
+            <p class="hp-film-card__kicker">A word from</p>
+            <p class="hp-film-card__title">Umar</p>
+            <p class="hp-film-card__sub">Founder, UG Global</p>
+          </div>
+          <p class="ug-video__status" data-ug-video-status aria-live="polite"></p>
+          <button class="ug-video__play" type="button" data-ug-video-start aria-describedby="film-title">
+            <span class="ug-video__play-icon"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg></span>
+            <span>Play film</span>
+            <span class="ug-video__duration">2:30</span>
+          </button>
+          <div class="ug-video__controls" hidden>
+            <button class="ug-ctrl" type="button" data-ug-video-toggle aria-label="Pause film"></button>
+            <input class="ug-range" type="range" min="0" max="100" step="0.1" value="0" aria-label="Seek film">
+            <span class="ug-time">0:00 / 2:30</span>
+            <button class="ug-ctrl" type="button" aria-label="Captions on" aria-pressed="true"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="3" width="14" height="10" rx="1" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M4 9.5h3M9 9.5h3M4 7h8" stroke="currentColor" stroke-width="1.4"/></svg></button>
+          </div>
+        </div>
+        <figcaption class="ug-video__caption">
+          <h3 class="ug-h4" id="film-title">A word from Umar</h3>
+          <p class="ug-small ug-secondary" style="max-width:60ch">A short introduction explaining who we are, how we sell, and what a partnership looks like.</p>
+        </figcaption>
+      </figure>
+
+      <section class="ug-audio hp-team__call" data-ug-audio data-duration="94" aria-labelledby="call-title" data-ug-reveal>
+        <div class="ug-audio__head">
+          <span class="ug-eyebrow ug-eyebrow--plain">Call sample</span>
+          <h3 class="ug-h4" id="call-title">Hear how we speak to your customers.</h3>
+        </div>
+        <div class="ug-audio__player">
+          <button class="ug-ctrl ug-ctrl--primary" type="button" data-ug-audio-toggle aria-label="Play call sample"></button>
+          <div class="ug-audio__track">
+            <div class="ug-audio__wave" aria-hidden="true"></div>
+            <input class="ug-range" type="range" min="0" max="100" step="0.1" value="0" aria-label="Seek call sample">
+            <div class="ug-audio__meta ug-time"><span data-ug-audio-current>0:00</span><span>1:34</span></div>
+          </div>
+        </div>
+        <p class="ug-help">Shared with the prospect’s consent. Names and details have been changed.</p>
+        <button class="ug-link" type="button" style="background:none;border:0;padding:0;align-self:flex-start" aria-expanded="false" aria-controls="call-transcript" data-ug-transcript-toggle>
+          <span class="ug-link__text">Show transcript</span>
+          <svg class="ug-btn__icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h13M10 4l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+        <div class="ug-audio__transcript" id="call-transcript" hidden>
+          <p><strong>Closer:</strong> Thanks for getting back to us, James. Before I tell you anything about the treatment, can I ask what made you enquire this week?</p>
+          <p><strong>Prospect:</strong> Honestly, I’ve been putting it off for a year. I wasn’t sure it was worth the cost.</p>
+          <p><strong>Closer:</strong> That’s fair, and it’s the right question. Let’s look at what you’d actually be paying for, and then you can decide with the full picture.</p>
+        </div>
+      </section>
+    </div>
+
+    <ul class="ug-profiles" role="list" data-ug-reveal>
+      <li class="ug-profile ug-profile--lead">
+        <div class="ug-media ug-portrait ug-portrait--lime" data-ug-tilt>
+          <span class="ug-portrait__initials" aria-hidden="true">U</span>
+          <svg class="ug-portrait__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M17 15v18.5a15 15 0 0 0 30 0V29H36" fill="none" stroke="currentColor" stroke-width="6.5" stroke-linecap="square"/><rect x="40.5" y="12" width="9.5" height="9.5" fill="currentColor"/></svg>
+        </div>
+        <div class="ug-profile__text">
+          <h3 class="ug-h4 ug-profile__name">Umar</h3>
+          <p class="ug-profile__role">Founder</p>
+        </div>
+      </li>
+      <li class="ug-profile">
+        <div class="ug-media ug-portrait ug-portrait--emerald" data-ug-tilt>
+          <span class="ug-portrait__initials" aria-hidden="true">HP</span>
+          <svg class="ug-portrait__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M17 15v18.5a15 15 0 0 0 30 0V29H36" fill="none" stroke="currentColor" stroke-width="6.5" stroke-linecap="square"/><rect x="40.5" y="12" width="9.5" height="9.5" fill="currentColor"/></svg>
+        </div>
+        <div class="ug-profile__text">
+          <h3 class="ug-h4 ug-profile__name">Hannah Price</h3>
+          <p class="ug-profile__role">Head of Closing</p>
+        </div>
+      </li>
+      <li class="ug-profile">
+        <div class="ug-media ug-portrait ug-portrait--ink" data-ug-tilt>
+          <span class="ug-portrait__initials" aria-hidden="true">DO</span>
+          <svg class="ug-portrait__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><path d="M17 15v18.5a15 15 0 0 0 30 0V29H36" fill="none" stroke="currentColor" stroke-width="6.5" stroke-linecap="square"/><rect x="40.5" y="12" width="9.5" height="9.5" fill="currentColor"/></svg>
+        </div>
+        <div class="ug-profile__text">
+          <h3 class="ug-h4 ug-profile__name">Daniel Osei</h3>
+          <p class="ug-profile__role">Senior Closer</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== 6. WHY ===================== -->
+<section class="ug-section" id="why" data-surface="dark" aria-labelledby="why-title">
+  <div class="ug-container">
+    <div class="ug-grid hp-why__grid">
+      <div class="hp-why__aside">
+        <div class="ug-stack" style="--ug-stack-gap: 24px">
+          <div class="ug-section-head__aside">
+            <span class="ug-section-head__index">06</span>
+            <span class="ug-eyebrow ug-eyebrow--plain">Why UG Global</span>
+          </div>
+          <h2 class="ug-display-l" id="why-title">What our partners rely on.</h2>
+        </div>
+      </div>
+      <div class="hp-why__list">
+        <ul class="ug-principles" role="list" data-ug-reveal>
+          <li class="ug-principle"><h3 class="ug-h3 ug-principle__title">Specialism</h3><p class="ug-body ug-principle__body">Closing is our only discipline. Depth, not breadth.</p></li>
+          <li class="ug-principle"><h3 class="ug-h3 ug-principle__title">Capacity without overhead</h3><p class="ug-body ug-principle__body">A trained closing team from the first week. No recruitment, salaries or management.</p></li>
+          <li class="ug-principle"><h3 class="ug-h3 ug-principle__title">Care for your name</h3><p class="ug-body ug-principle__body">Your reputation travels with every call we make. We protect it as our own.</p></li>
+          <li class="ug-principle"><h3 class="ug-h3 ug-principle__title">Transparency</h3><p class="ug-body ug-principle__body">Every opportunity visible. Every outcome reported.</p></li>
+          <li class="ug-principle"><h3 class="ug-h3 ug-principle__title">Longevity</h3><p class="ug-body ug-principle__body">We measure our success by how long our partners stay.</p></li>
+        </ul>
+        <div class="hp-why__terms" style="margin-top:var(--ug-space-8)">
+          <div class="hp-term"><p class="hp-term__label">How we’re paid</p><p class="hp-term__text">A monthly fee for your dedicated closing team, plus a success fee on revenue we close. Agreed up front. Reported every month.</p></div>
+          <div class="hp-term"><p class="hp-term__label">Who we take on</p><p class="hp-term__text">We work with a small number of partners at a time, so every closer stays immersed in your business.</p></div>
+        </div>
+        <aside class="ug-callout" style="margin-top:var(--ug-space-8)" aria-labelledby="notfor-title">
+          <h3 class="ug-h4 ug-callout__title" id="notfor-title">Who we're not for</h3>
+          <p class="ug-body ug-secondary">We're not the right partner for businesses without a steady flow of enquiries. Our work begins where interest already exists.</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 7. FAQ ===================== -->
+<section class="ug-section" id="faq" data-surface="light" aria-labelledby="faq-title">
+  <div class="ug-container">
+    <header class="ug-section-head" data-ug-reveal>
+      <div class="ug-section-head__aside">
+        <span class="ug-section-head__index">07</span>
+        <span class="ug-eyebrow ug-eyebrow--plain">FAQ</span>
+      </div>
+      <div class="ug-section-head__main">
+        <h2 class="ug-display-l" id="faq-title">Before we speak.</h2>
+      </div>
+    </header>
+    <div class="ug-grid">
+      <div class="ug-accordion hp-faq__list" data-ug-reveal>
+        <details class="ug-accordion__item" open>
+          <summary class="ug-accordion__summary">What does UG Global do?<span class="ug-accordion__icon" aria-hidden="true"></span></summary>
+          <div class="ug-accordion__panel"><div class="ug-accordion__content">
+            <p>We are a specialist sales-closing firm. Our closers work as an extension of your business and take each qualified enquiry from first conversation to final decision: the sales conversation, the follow-up, the objections and the close.</p>
+          </div></div>
+        </details>
+        <details class="ug-accordion__item">
+          <summary class="ug-accordion__summary">Do you generate leads?<span class="ug-accordion__icon" aria-hidden="true"></span></summary>
+          <div class="ug-accordion__panel"><div class="ug-accordion__content">
+            <p>No. We don't generate leads, run advertising or sell software. Our work begins where interest already exists, with the enquiries your marketing already brings in.</p>
+          </div></div>
+        </details>
+        <details class="ug-accordion__item">
+          <summary class="ug-accordion__summary">Why not hire a salesperson?<span class="ug-accordion__icon" aria-hidden="true"></span></summary>
+          <div class="ug-accordion__panel"><div class="ug-accordion__content">
+            <p>You get a trained closing team from the first week, with no recruitment, salaries or management. Closing is our only discipline, so you get depth, not breadth.</p>
+          </div></div>
+        </details>
+        <details class="ug-accordion__item">
+          <summary class="ug-accordion__summary">How will you represent us?<span class="ug-accordion__icon" aria-hidden="true"></span></summary>
+          <div class="ug-accordion__panel"><div class="ug-accordion__content">
+            <p>As you would. Before speaking to a single client, each closer learns your offer, your clients and your voice. Every conversation is held to one standard: would you be proud of it? Your reputation travels with every call we make, and we protect it as our own.</p>
+          </div></div>
+        </details>
+        <details class="ug-accordion__item">
+          <summary class="ug-accordion__summary">How are you paid?<span class="ug-accordion__icon" aria-hidden="true"></span></summary>
+          <div class="ug-accordion__panel"><div class="ug-accordion__content">
+            <p>A monthly fee for your dedicated closing team, plus a success fee on revenue we close. Both are agreed before we begin, and you see every opportunity and outcome in a monthly report.</p>
+          </div></div>
+        </details>
+        <details class="ug-accordion__item">
+          <summary class="ug-accordion__summary">How soon can we begin?<span class="ug-accordion__icon" aria-hidden="true"></span></summary>
+          <div class="ug-accordion__panel"><div class="ug-accordion__content">
+            <p>Every partnership begins with a review of your enquiries, then immersion in your offer, your clients and your voice. Most partnerships go live within two to three weeks of the first conversation.</p>
+          </div></div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 8. FINAL CONVERSION ===================== -->
+<section class="ug-section" id="review" data-surface="signal" data-ug-finale aria-labelledby="final-title">
+  <div class="ug-container">
+    <div class="ug-grid hp-final__grid">
+      <div class="hp-final__copy">
+        <span class="ug-eyebrow">Enquiry review</span>
+        <h2 class="ug-display-l" id="final-title">Your next clients may already be waiting for a reply.</h2>
+        <p class="ug-body-l ug-secondary">In one short conversation, we'll review how your enquiries are handled today, show you where revenue is being lost, and tell you plainly whether we can help. If we can't, we'll say so.</p>
+      </div>
+
+      <div class="hp-final__form">
+        <div class="ug-panel" data-surface="light">
+          <form class="ug-form" data-ug-form data-success="review-success" novalidate aria-labelledby="form-title">
+            <div class="ug-stack" style="--ug-stack-gap: 8px">
+              <h3 class="ug-h3" id="form-title">Request Your Enquiry Review</h3>
+              <p class="ug-small ug-secondary">A 15-minute conversation. No obligation.</p>
+            </div>
+            <div class="ug-alert" role="alert" tabindex="-1" data-ug-error-summary hidden>
+              <p class="ug-alert__title"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="0.75" y="0.75" width="14.5" height="14.5" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 4v5" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="11.6" r="1" fill="currentColor"/></svg><span data-ug-error-count>There is a problem with this form</span></p>
+              <ul></ul>
+            </div>
+            <div class="ug-form__row ug-form__row--2">
+              <div class="ug-field">
+                <label class="ug-label" for="rv-name">Full name</label>
+                <input class="ug-input" id="rv-name" name="name" type="text" autocomplete="name" required data-label="Your full name">
+              </div>
+              <div class="ug-field">
+                <label class="ug-label" for="rv-company">Company</label>
+                <input class="ug-input" id="rv-company" name="company" type="text" autocomplete="organization" required data-label="Your company name">
+              </div>
+            </div>
+            <div class="ug-form__row ug-form__row--2">
+              <div class="ug-field">
+                <label class="ug-label" for="rv-email">Work email</label>
+                <input class="ug-input" id="rv-email" name="email" type="email" autocomplete="email" inputmode="email" required data-label="Your work email">
+              </div>
+              <div class="ug-field">
+                <label class="ug-label" for="rv-phone">Phone <span class="ug-label__opt">Optional</span></label>
+                <input class="ug-input" id="rv-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
+              </div>
+            </div>
+            <div class="ug-field">
+              <label class="ug-label" for="rv-volume">Enquiries you receive in a typical month</label>
+              <div class="ug-select-wrap">
+                <select class="ug-select" id="rv-volume" name="volume" required data-label="A monthly enquiry range" aria-describedby="rv-volume-help">
+                  <option value="">Select a range</option>
+                  <option>Fewer than 20</option>
+                  <option>20 to 50</option>
+                  <option>51 to 150</option>
+                  <option>More than 150</option>
+                </select>
+              </div>
+              <p class="ug-help" id="rv-volume-help">A rough figure is fine. It helps us prepare for the review.</p>
+            </div>
+            <div class="ug-field">
+              <label class="ug-label" for="rv-notes">Where do you think enquiries are being lost? <span class="ug-label__opt">Optional</span></label>
+              <textarea class="ug-textarea" id="rv-notes" name="notes" rows="3"></textarea>
+            </div>
+            <div class="ug-check-field ug-stack" style="--ug-stack-gap: 8px">
+              <label class="ug-check" for="rv-consent">
+                <input id="rv-consent" name="consent" type="checkbox" required data-required-msg="Please confirm you've read the privacy notice.">
+                <span>I agree that UG Global may contact me about this request. See the <a class="ug-inline-link" href="#privacy">privacy notice</a>.</span>
+              </label>
+            </div>
+            <button class="ug-btn ug-btn--primary ug-btn--lg ug-btn--block" type="submit" data-busy-label="Sending your request…">
+              <span class="ug-btn__label">Request Your Enquiry Review</span>
+              <svg class="ug-btn__icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h13M10 4l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            </button>
+          </form>
+
+          <div class="ug-confirm" id="review-success" hidden role="status">
+            <span class="ug-confirm__icon" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M3 9.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2"/></svg></span>
+            <h3 class="ug-h3">Thank you. Your request is with us.</h3>
+            <p class="ug-body ug-secondary">We'll reply by email to arrange your enquiry review within one working day.</p>
+            <ol class="ug-small">
+              <li>We confirm a time that suits you.</li>
+              <li>We review how your enquiries are handled today.</li>
+              <li>We tell you plainly whether we can help.</li>
+            </ol>
+            <button class="ug-link" type="button" style="background:none;border:0;padding:0;align-self:flex-start" data-ug-form-reset><span>Send another request</span></button>
+          </div>
+
+          <div class="hp-booking ug-booking" aria-labelledby="booking-title">
+            <div class="hp-booking__head">
+              <p class="ug-h4" id="booking-title">Or pick a time now</p>
+              <p class="ug-small ug-secondary">Week of 20 October · UK time</p>
+            </div>
+            <ul class="hp-booking__slots" role="list" data-ug-choice-group aria-label="Available times">
+              <li><button type="button" class="hp-slot" aria-pressed="false">Mon 20<span>10:00</span></button></li>
+              <li><button type="button" class="hp-slot" aria-pressed="false">Tue 21<span>14:30</span></button></li>
+              <li><button type="button" class="hp-slot" aria-pressed="false">Wed 22<span>09:15</span></button></li>
+              <li><button type="button" class="hp-slot" aria-pressed="false">Thu 23<span>16:00</span></button></li>
+            </ul>
+            <p class="ug-help">Live calendar connects here (Calendly, Cal.com or HubSpot Meetings).</p>
+          </div>
+        </div>
+
+        <div class="hp-final__playbook" style="margin-top:var(--ug-space-6);border-top-color:var(--ug-color-border)">
+          <p class="ug-small ug-secondary">Not ready to speak yet?</p>
+          <a class="ug-link" href="#playbook">
+            <span>Read The Enquiry-to-Client Playbook</span>
+            <svg class="ug-btn__icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h13M10 4l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="ug-footer" data-surface="dark" data-ug-inert-when-menu>
+  <div class="ug-container">
+    <div class="ug-footer__top">
+      <div class="ug-footer__brand">
+        <a class="ug-brand ug-brand--lg" href="#top" aria-label="UG Global, back to top"><svg class="ug-brand__logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="6" fill="#C8F26B"/><path d="M17 15v18.5a15 15 0 0 0 30 0V29H36" fill="none" stroke="#0A0F0D" stroke-width="6.5" stroke-linecap="square"/><rect x="40.5" y="12" width="9.5" height="9.5" fill="#0E6B4B"/></svg><span class="ug-brand__word"><b>UG</b> Global</span></a>
+        <p class="ug-footer__tagline">Your Sales. Our Focus.</p>
+      </div>
+      <div class="ug-stack" style="--ug-stack-gap: 48px">
+        <div class="ug-leadform" id="playbook">
+          <div class="ug-stack" style="--ug-stack-gap: 6px">
+            <h2 class="ug-h4">The Enquiry-to-Client Playbook</h2>
+            <p class="ug-small ug-secondary">For when you're not ready to speak yet. A 24-page guide to answering, following up and closing the enquiries you already have.</p>
+          </div>
+          <form class="ug-leadform" data-ug-form data-success="playbook-success" novalidate aria-label="Get the playbook">
+            <div class="ug-leadform__row">
+              <div class="ug-field">
+                <label class="ug-label" for="pb-email">Work email</label>
+                <input class="ug-input" id="pb-email" name="email" type="email" autocomplete="email" required data-label="Your work email">
+              </div>
+              <button class="ug-btn ug-btn--secondary" type="submit" style="margin-top:30px" data-busy-label="Sending…">
+                <span class="ug-btn__label">Send me the playbook</span>
+                <svg class="ug-btn__icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h13M10 4l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+              </button>
+            </div>
+            <p class="ug-help">We'll send the playbook to this address. <a class="ug-inline-link" href="#privacy">Privacy notice</a>.</p>
+          </form>
+          <div class="ug-confirm" id="playbook-success" hidden role="status" style="background:var(--ug-color-bg-raised)">
+            <h3 class="ug-h4">Check your inbox.</h3>
+            <p class="ug-small ug-secondary">The playbook is on its way.</p>
+            <button class="ug-link" type="button" style="background:none;border:0;padding:0;align-self:flex-start" data-ug-form-reset><span>Use a different email</span></button>
+          </div>
+        </div>
+        <div class="ug-footer__cols">
+          <nav aria-label="Footer">
+            <h2 class="ug-footer__heading">Explore</h2>
+            <ul class="ug-footer__list" role="list">
+              <li><a href="#approach">Approach</a></li>
+              <li><a href="#evidence">Evidence</a></li>
+              <li><a href="#team">Team</a></li>
+              <li><a href="#faq">FAQ</a></li>
+              <li><a href="#review">Request Your Enquiry Review</a></li>
+            </ul>
+          </nav>
+          <div>
+            <h2 class="ug-footer__heading">Company</h2>
+            <ul class="ug-footer__list" role="list">
+              <li><a href="https://www.linkedin.com/company/ug-global" rel="noopener">LinkedIn</a></li>
+              <li><span class="ug-small">London, United Kingdom</span></li>
+            </ul>
+          </div>
+          <div>
+            <h2 class="ug-footer__heading">Legal</h2>
+            <ul class="ug-footer__list" role="list">
+              <li><a href="#privacy" id="privacy">Privacy &amp; GDPR</a></li>
+              <li><a href="#cookies">Cookies</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ug-footer__legal">
+      <p>UG Global — Your Sales. Our Focus. UG Global Ltd, registered in England and Wales, company number 00000000. Registered office: London, United Kingdom. <span class="ug-sample">Sample details</span></p>
+      <p>© <span data-year>2026</span> UG Global</p>
+    </div>
+  </div>
+</footer>
+
+<div class="ug-mobile-cta" data-ug-mobile-cta aria-hidden="true" inert>
+  <a class="ug-btn ug-btn--primary ug-btn--block" href="#review" data-surface="dark" style="background:var(--ug-lime-400);color:var(--ug-ink-950)">
+    <span class="ug-btn__label">Request Your Enquiry Review</span>
+    <svg class="ug-btn__icon" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h13M10 4l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+  </a>
+</div>
+
+<script src="js/site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/close3d.js"></script>
+<script src="js/depth.js"></script>
+
+</body></html>

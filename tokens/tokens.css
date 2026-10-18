@@ -1,0 +1,328 @@
+/* ==========================================================================
+   UG Global — Design tokens  v1.0
+   Three tiers:
+     1. Primitives   --ug-{hue}-{step}            raw values, never used in components
+     2. Semantic     --ug-{category}-{role}-{variant}-{state}
+     3. Component    --ug-{component}-{property}   (defined in components.css)
+   Surfaces are switched with [data-surface="light|paper|white|dark|raised|forest|signal"].
+   Breakpoints cannot be read inside @media; they are listed here for reference
+   and mirrored as literal values in the stylesheets.
+   ========================================================================== */
+
+:root {
+  /* ---------- 1. Colour primitives — "Emerald Signal" ---------- */
+  --ug-ink-950: #0A0F0D;  /* Ink: primary dark ground (green-black) */
+  --ug-ink-900: #121A17;  /* Raised dark surface */
+  --ug-ink-850: #1A2420;  /* Hover / pressed on dark */
+  --ug-ink-800: #2B3833;  /* Dark hairline (decorative) */
+  --ug-ink-600: #6F7D76;  /* Dark control border, 4.48:1 on ink-950 */
+  --ug-ink-500: #A3AFA9;  /* Tertiary text on dark, 7.7:1 on ink-900 */
+
+  --ug-paper-50:  #FFFFFF;     /* Raised paper */
+  --ug-paper-100: #FBFAF6;     /* Paper: primary light ground */
+  --ug-paper-200: #F0EEE6;     /* Sunken paper band */
+  --ug-line-300:  #DCDDD5;     /* Light hairline */
+  --ug-mist-200:  #D7DED9;     /* Secondary text on dark, 14.1:1 on ink-950 */
+  --ug-line-500:  #7A867F;     /* Light control border, 3.63:1 on paper */
+  --ug-slate-700: #3A4540;     /* Secondary text on light, 9.55:1 on paper */
+  --ug-white:     #FFFFFF;
+
+  --ug-emerald-900: #0B3D2C;   /* Deep emerald: conversion band */
+  --ug-emerald-700: #0E6B4B;   /* Emerald: brand accent on light, 6.24:1 on paper */
+  --ug-emerald-500: #19A26E;   /* Bright emerald: graphics only, never text */
+  --ug-emerald-100: #E8F5DA;   /* Emerald tint: success, subtle fills */
+  --ug-lime-400:    #C8F26B;   /* Signal lime: CTA + accent on dark, 15:1 on ink */
+  --ug-lime-200:    #E9F7D0;   /* Pale lime: secondary text on emerald-900, 10.9:1 */
+  --ug-amber-400:   #F5B83D;   /* Amber: numerals and highlights on dark only */
+
+  --ug-ochre-700: #6E5214;     /* Placeholder ink (unverified content only) */
+  --ug-ochre-300: #D9B86C;     /* Placeholder ink on dark */
+  --ug-ochre-100: #F3EAD3;     /* Placeholder tint */
+
+  --ug-red-700: #B42318;       /* Error on light, 6.29:1 on paper */
+  --ug-red-300: #FF8A7A;       /* Error on dark, 8.43:1 on ink */
+
+  /* ---------- 2. Semantic colour (light surface is the default) ---------- */
+  --ug-color-bg:               var(--ug-paper-100);
+  --ug-color-bg-raised:        var(--ug-paper-50);
+  --ug-color-bg-sunken:        var(--ug-paper-200);
+  --ug-color-bg-hover:         rgba(10, 15, 13, 0.04);
+  --ug-color-text:             var(--ug-ink-950);
+  --ug-color-text-secondary:   var(--ug-slate-700);
+  --ug-color-text-accent:      var(--ug-emerald-700);
+  --ug-color-text-inverse:     var(--ug-white);
+  --ug-color-border:           var(--ug-line-300);
+  --ug-color-border-strong:    var(--ug-line-500);
+  --ug-color-border-emphasis:  var(--ug-ink-950);
+  --ug-color-accent:           var(--ug-emerald-700);
+  --ug-color-accent-subtle:    var(--ug-emerald-100);
+  --ug-color-focus:            var(--ug-emerald-700);
+
+  --ug-color-action-primary-bg:          var(--ug-emerald-700);
+  --ug-color-action-primary-bg-hover:    var(--ug-emerald-900);
+  --ug-color-action-primary-bg-active:   var(--ug-ink-950);
+  --ug-color-action-primary-text:        var(--ug-white);
+  --ug-color-action-secondary-border:    var(--ug-ink-950);
+  --ug-color-action-secondary-bg-hover:  var(--ug-ink-950);
+  --ug-color-action-secondary-text-hover:var(--ug-paper-100);
+  --ug-color-action-disabled-bg:         var(--ug-paper-200);
+  --ug-color-action-disabled-text:       var(--ug-slate-700);
+
+  --ug-color-field-bg:         var(--ug-white);
+  --ug-color-field-border:     var(--ug-line-500);
+  --ug-color-field-border-hover: var(--ug-ink-950);
+
+  --ug-color-error:            var(--ug-red-700);
+  --ug-color-error-bg:         #FBEAE7;
+  --ug-color-success:          var(--ug-emerald-700);
+  --ug-color-success-bg:       var(--ug-emerald-100);
+
+  --ug-color-placeholder-text:   var(--ug-ochre-700);
+  --ug-color-placeholder-bg:     var(--ug-ochre-100);
+  --ug-color-placeholder-border: var(--ug-ochre-700);
+
+  --ug-color-overlay:          rgba(10, 15, 13, 0.72);
+
+  /* ---------- Typography ---------- */
+  --ug-font-display: "Manrope", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --ug-font-body:    "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --ug-font-quote:   "Newsreader", Georgia, "Times New Roman", serif;
+
+  --ug-weight-regular: 400;
+  --ug-weight-medium:  500;
+  --ug-weight-semibold:600;
+  --ug-weight-bold:    700;
+
+  /* Fluid sizes: min at 375px viewport, max at 1440px */
+  --ug-text-display-xl: clamp(2.75rem, 0.9rem + 9.5vw, 8.5rem);      /* 44 → 136 */
+  --ug-text-display-l:  clamp(2.75rem, 1.78rem + 4.13vw, 5.5rem);    /* 44 → 88  */
+  --ug-text-h2:         clamp(2.25rem, 1.72rem + 2.25vw, 3.75rem);   /* 36 → 60  */
+  --ug-text-h3:         clamp(1.5rem, 1.325rem + 0.75vw, 2rem);      /* 24 → 32  */
+  --ug-text-h4:         1.25rem;                                     /* 20       */
+  --ug-text-body-l:     clamp(1.125rem, 1.08rem + 0.19vw, 1.25rem);  /* 18 → 20  */
+  --ug-text-body:       clamp(1rem, 0.98rem + 0.09vw, 1.0625rem);    /* 16 → 17  */
+  --ug-text-small:      0.875rem;                                    /* 14       */
+  --ug-text-micro:      0.75rem;                                     /* 12       */
+  --ug-text-eyebrow:    0.8125rem;                                   /* 13       */
+  --ug-text-nav:        0.875rem;                                    /* 14       */
+  --ug-text-button:     0.9375rem;                                   /* 15       */
+  --ug-text-kpi:        clamp(4rem, 2.77rem + 5.26vw, 7.5rem);       /* 64 → 120 */
+  --ug-text-quote:      clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem);     /* 28 → 44  */
+
+  --ug-leading-display: 0.94;
+  --ug-leading-heading: 1.08;
+  --ug-leading-snug:    1.3;
+  --ug-leading-body:    1.65;
+  --ug-leading-quote:   1.22;
+
+  --ug-tracking-display: -0.04em;
+  --ug-tracking-heading: -0.025em;
+  --ug-tracking-tight:   -0.01em;
+  --ug-tracking-normal:  0;
+  --ug-tracking-eyebrow: 0.14em;
+  --ug-tracking-button:  0.005em;
+
+  --ug-measure:        62ch;
+  --ug-measure-narrow: 46ch;
+
+  /* ---------- Spacing: 8pt scale with 4pt half-steps ---------- */
+  --ug-space-0:  0;
+  --ug-space-1:  4px;
+  --ug-space-2:  8px;
+  --ug-space-3:  12px;
+  --ug-space-4:  16px;
+  --ug-space-5:  24px;
+  --ug-space-6:  32px;
+  --ug-space-7:  40px;
+  --ug-space-8:  48px;
+  --ug-space-9:  64px;
+  --ug-space-10: 80px;
+  --ug-space-11: 96px;
+  --ug-space-12: 128px;
+  --ug-space-13: 160px;
+
+  /* ---------- Layout ---------- */
+  --ug-container-max:   1320px;
+  --ug-container-text:  760px;
+  --ug-gutter:          clamp(20px, 4.5vw, 80px);   /* page side margin: 20 / 40 / 64-80 */
+  --ug-grid-gap:        clamp(16px, 2.2vw, 32px);   /* column gutter: 16 / 24 / 32 */
+  --ug-section-y:       clamp(72px, 4rem + 6vw, 160px);
+  --ug-section-y-tight: clamp(56px, 3rem + 4vw, 112px);
+  --ug-header-h:        88px;
+  --ug-header-h-condensed: 64px;
+  --ug-card-pad:        clamp(24px, 1rem + 2vw, 48px);
+
+  /* Breakpoints (reference only — use the literal value in @media) */
+  --ug-bp-sm:  480px;
+  --ug-bp-md:  768px;
+  --ug-bp-lg:  1024px;
+  --ug-bp-xl:  1280px;
+  --ug-bp-2xl: 1536px;
+
+  /* Aspect ratios */
+  --ug-ratio-film:     16 / 9;
+  --ug-ratio-case:     4 / 3;
+  --ug-ratio-portrait: 4 / 5;
+  --ug-ratio-square:   1 / 1;
+
+  /* ---------- Radius ---------- */
+  --ug-radius-0:  0;
+  --ug-radius-sm: 2px;   /* buttons, inputs, badges */
+  --ug-radius-md: 4px;   /* media frames, panels */
+
+  /* ---------- Borders ---------- */
+  --ug-border-hairline: 1px;
+  --ug-border-rule:     2px;   /* active nav, open accordion, focus */
+
+  /* ---------- Shadows (used sparingly) ---------- */
+  --ug-shadow-none:  none;
+  --ug-shadow-raise: 0 1px 0 rgba(10, 15, 13, 0.06), 0 12px 32px -12px rgba(10, 15, 13, 0.28);
+
+  /* ---------- Opacity ---------- */
+  --ug-opacity-disabled: 0.4;
+  --ug-opacity-muted:    0.64;
+  --ug-opacity-overlay:  0.72;
+
+  /* ---------- Z-index ---------- */
+  --ug-z-base:    0;
+  --ug-z-raised:  10;
+  --ug-z-sticky:  100;
+  --ug-z-overlay: 200;
+  --ug-z-modal:   300;
+  --ug-z-toast:   400;
+
+  /* ---------- Motion ---------- */
+  --ug-duration-instant: 120ms;  /* colour, opacity */
+  --ug-duration-fast:    200ms;  /* hover, arrow nudge */
+  --ug-duration-base:    320ms;  /* accordion, menu */
+  --ug-duration-slow:    560ms;  /* section reveal */
+  --ug-ease-out:      cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ug-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ug-reveal-distance: 16px;
+  --ug-arrow-nudge:     4px;
+
+  /* ---------- 3D & depth (css/depth.css, js/close3d.js, js/depth.js) ---------- */
+  --ug-perspective:      1200px;   /* section-scale depth (steps unfold) */
+  --ug-perspective-near: 800px;    /* object-scale depth (pointer tilt) */
+  --ug-tilt-max:         4deg;     /* pointer tilt ceiling, fine pointers only */
+  --ug-parallax-max:     6deg;     /* WebGL scene pointer parallax ceiling */
+  --ug-depth-duration:   900ms;
+  --ug-unfold-angle:     -18deg;   /* rotateX start for .ug-steps--unfold */
+  --ug-stagger:          80ms;
+  --ug-ease-depth:       cubic-bezier(0.16, 1, 0.3, 1);
+  --ug-close3d-plane:    #FBFAF6;  /* enquiry planes (Paper) */
+  --ug-close3d-client:   #19A26E;  /* resolved client slabs (Bright emerald) */
+  --ug-close3d-rim:      #C8F26B;  /* rim light and slab edges (Signal lime) */
+}
+
+/* ---------- Surface scopes ---------- */
+[data-surface="light"] {
+  --ug-color-bg: var(--ug-paper-100);
+}
+[data-surface="paper"] {
+  --ug-color-bg: var(--ug-paper-200);
+  --ug-color-bg-raised: var(--ug-paper-100);
+}
+[data-surface="white"] {
+  --ug-color-bg: var(--ug-white);
+  --ug-color-bg-raised: var(--ug-paper-100);
+}
+
+[data-surface="dark"],
+[data-surface="raised"] {
+  --ug-color-bg:               var(--ug-ink-950);
+  --ug-color-bg-raised:        var(--ug-ink-900);
+  --ug-color-bg-sunken:        #060908;
+  --ug-color-bg-hover:         var(--ug-ink-850);
+  --ug-color-text:             var(--ug-white);
+  --ug-color-text-secondary:   var(--ug-mist-200);
+  --ug-color-text-accent:      var(--ug-lime-400);
+  --ug-color-text-inverse:     var(--ug-ink-950);
+  --ug-color-border:           var(--ug-ink-800);
+  --ug-color-border-strong:    var(--ug-ink-600);
+  --ug-color-border-emphasis:  var(--ug-white);
+  --ug-color-accent:           var(--ug-lime-400);
+  --ug-color-accent-subtle:    var(--ug-ink-850);
+  --ug-color-focus:            var(--ug-lime-400);
+
+  --ug-color-action-primary-bg:          var(--ug-lime-400);
+  --ug-color-action-primary-bg-hover:    var(--ug-lime-200);
+  --ug-color-action-primary-bg-active:   var(--ug-emerald-100);
+  --ug-color-action-primary-text:        var(--ug-ink-950);
+  --ug-color-action-secondary-border:    var(--ug-white);
+  --ug-color-action-secondary-bg-hover:  var(--ug-white);
+  --ug-color-action-secondary-text-hover:var(--ug-ink-950);
+  --ug-color-action-disabled-bg:         var(--ug-ink-850);
+  --ug-color-action-disabled-text:       var(--ug-ink-500);
+
+  --ug-color-field-bg:           var(--ug-ink-900);
+  --ug-color-field-border:       var(--ug-ink-600);
+  --ug-color-field-border-hover: var(--ug-white);
+
+  --ug-color-error:            var(--ug-red-300);
+  --ug-color-error-bg:         #2B1512;
+  --ug-color-success:          var(--ug-lime-400);
+  --ug-color-success-bg:       var(--ug-ink-850);
+
+  --ug-color-placeholder-text:   var(--ug-ochre-300);
+  --ug-color-placeholder-bg:     rgba(217, 184, 108, 0.08);
+  --ug-color-placeholder-border: var(--ug-ochre-300);
+}
+[data-surface="raised"] {
+  --ug-color-bg: var(--ug-ink-900);
+  --ug-color-bg-raised: var(--ug-ink-850);
+  --ug-color-field-bg: var(--ug-ink-950);
+}
+
+[data-surface="forest"] {
+  --ug-color-bg:               var(--ug-emerald-900);
+  --ug-color-bg-raised:        #0F4A36;
+  --ug-color-bg-hover:         #0F4A36;
+  --ug-color-text:             var(--ug-white);
+  --ug-color-text-secondary:   var(--ug-lime-200);
+  --ug-color-text-accent:      var(--ug-lime-400);
+  --ug-color-border:           rgba(233, 247, 208, 0.24);
+  --ug-color-border-strong:    #7DB89A;
+  --ug-color-border-emphasis:  var(--ug-white);
+  --ug-color-accent:           var(--ug-lime-400);
+  --ug-color-accent-subtle:    #0F4A36;
+  --ug-color-focus:            var(--ug-lime-400);
+  --ug-color-action-primary-bg:          var(--ug-lime-400);
+  --ug-color-action-primary-bg-hover:    var(--ug-white);
+  --ug-color-action-primary-bg-active:   var(--ug-lime-200);
+  --ug-color-action-primary-text:        var(--ug-ink-950);
+  --ug-color-action-secondary-border:    var(--ug-white);
+  --ug-color-action-secondary-bg-hover:  var(--ug-white);
+  --ug-color-action-secondary-text-hover:var(--ug-emerald-900);
+  --ug-color-placeholder-text:   var(--ug-ochre-300);
+  --ug-color-placeholder-bg:     rgba(217, 184, 108, 0.1);
+  --ug-color-placeholder-border: var(--ug-ochre-300);
+}
+
+[data-surface="signal"] {
+  --ug-color-bg:               var(--ug-lime-400);
+  --ug-color-bg-raised:        var(--ug-white);
+  --ug-color-bg-hover:         rgba(10, 15, 13, 0.06);
+  --ug-color-text:             var(--ug-ink-950);
+  --ug-color-text-secondary:   #24332B;               /* 10.3:1 on lime */
+  --ug-color-text-accent:      var(--ug-emerald-900);
+  --ug-color-text-inverse:     var(--ug-white);
+  --ug-color-border:           rgba(10, 15, 13, 0.22);
+  --ug-color-border-strong:    #4F6B3A;
+  --ug-color-border-emphasis:  var(--ug-ink-950);
+  --ug-color-accent:           var(--ug-emerald-900);
+  --ug-color-accent-subtle:    rgba(10, 15, 13, 0.08);
+  --ug-color-focus:            var(--ug-ink-950);
+  --ug-color-action-primary-bg:          var(--ug-ink-950);
+  --ug-color-action-primary-bg-hover:    var(--ug-emerald-900);
+  --ug-color-action-primary-bg-active:   var(--ug-ink-850);
+  --ug-color-action-primary-text:        var(--ug-white);
+  --ug-color-action-secondary-border:    var(--ug-ink-950);
+  --ug-color-action-secondary-bg-hover:  var(--ug-ink-950);
+  --ug-color-action-secondary-text-hover:var(--ug-lime-400);
+}
+
+[data-surface] {
+  background-color: var(--ug-color-bg);
+  color: var(--ug-color-text);
+}
